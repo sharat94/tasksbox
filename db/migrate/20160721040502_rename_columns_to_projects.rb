@@ -1,6 +1,6 @@
 class RenameColumnsToProjects < ActiveRecord::Migration
   def change
-  	rename_column :projects, :float , :estimated_budget
-  	change_column :projects, :estimated_budget , :float
+  	remove_column :projects, :estimated_budget, :float
+  	add_column :projects, :estimated_budget , :float
   end
 end
