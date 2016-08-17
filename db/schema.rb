@@ -57,11 +57,11 @@ ActiveRecord::Schema.define(version: 20160816054816) do
   create_table "employees", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "company_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "code"
     t.integer  "department_id"
+    t.integer  "company_id"
   end
 
   create_table "line_items", force: true do |t|
