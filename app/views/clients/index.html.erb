@@ -1,0 +1,78 @@
+ <div class="row">
+ 	<div class= "col-md-9">
+
+ <div class="page-header">
+ <h2> Listing Client </h2>
+</div>
+ <%= link_to  clients_path(format: "xls"), class: "btn btn-sm btn-info pull-right" do %>
+ <span class="glyphicon glyphicon-download-alt"></span>Export to Excel
+ <% end %>
+ <br/><br/><br/>
+<% if @clients.empty? %>
+	<p> No Clients found </p>
+<% else %>
+<script>
+$(document).ready(function(){
+    $('#myTable').DataTable();
+});
+</script>
+<table class="table table-striped" id="myTable">
+ <thead>
+ <tr>
+ <th>#</th>
+ <th> Name   </th>
+  <th>Company  </th>
+ <th> Mobile  </th>
+  <th>Email  </th>
+  <th>Project_count </th>
+  <% if current_user.is_admin? %>
+  	<th> User </th>
+  	<% end %>
+  <th>Actions </th>
+
+ </tr>
+ </thead>
+ <tbody>
+ <% @clients.each_with_index do |client,index| %>
+ <tr>
+ <td><%= index +1 %></td>
+ <td><%= link_to client.name.capitalize , client_url(client.id) %></td>
+ <td><%= client.company.capitalize %></td>
+ <td><%= client.mobile %></td>
+ <td><%= client.email %></td>
+ <td><%= client.projects.size %></td>
+ <% if current_user.is_admin? %>
+ 	<td><%= client.user.email %></td>
+ 	<% end %>
+ <td>
+ 	<%= link_to client_path(client.id) do %>
+ 	<span class="glyphicon glyphicon-eye-open"></span>
+ 	<% end %>
+ </td>
+ </tr>
+ <%end%>
+ </tbody>
+ </table>
+<% end %>
+<% if can? :create, Client.new %>
+<%= link_to "ADD Client", new_client_path, class: "btn btn-info" %>
+<% end %>
+</div>
+
+<div class="col-md-3">
+<div class="page-header">
+	<h2>Statistics</h2>
+	</div>
+
+<% data = {} 
+	
+	(current_user.is_admin? ? Client.all : current_user.clients).each do |client|
+	data[client.name] = client.projects.count
+	end
+	%>
+<%= data %>
+<%= pie_chart(data) %>
+<%= column_chart(data) %>
+<%= bar_chart(data) %>
+</div>
+</div>

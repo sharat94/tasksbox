@@ -1,0 +1,26 @@
+<%= form_for @anouncement do |f| %>
+<% if @anouncement.errors.any? %>
+<div class="alert alert-danger">
+<h3>These errors prohibited the form from being saved: </h3>
+<ul>
+<% @anouncement.errors.full_messages.each do |msg| %>
+	<li><%= msg %></li>
+	<% end %>
+	</ul>
+	</div>
+	<% end %>
+	
+	<div class="form-group">
+	<label>Title</label><br/>
+	<%= f.text_field :title %><br/>
+	</div>
+
+	<div class="form-group">
+	<label>Body</label><br/>
+	<%= f.text_field :body %><br/>
+	</div>
+
+
+	<%= f.submit "Submit" , class: "btn btn-primary" %> or <%= link_to "back", anouncements_path %>
+
+	<% end %>

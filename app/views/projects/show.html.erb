@@ -1,0 +1,100 @@
+<div class = "row">
+	<div class = "col-md-7">
+
+<h3><%= @project.name %></h3>
+<p><%= @project.description %> <%= @project.start_date %> <%= @project.status %></p>
+<%= link_to "Export to excel", project_path(@project.id , format: "xls") %>
+	<% if @project.tasks.empty? %>
+	No Tasks Found!!!
+	<% else %>
+	<h3>Total Tasks : <%= @project.tasks.size %></h3>
+
+	<% task_completion = (@project.completed.size / @project.tasks.size.to_f ) * 100 %>
+	<div class="progress">
+  		<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= task_completion %>%;">
+   		 <%= task_completion.to_i %>%
+  		</div>
+	</div>
+	<ul>
+		<% @project.tasks.each do |task| %>
+		<li><%= task.title %></li>
+		<% end %>
+	</ul>
+	<% end %>
+	
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Add Tasks
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Tasks</h4>
+      </div>
+      <div class="modal-body">
+        	<h3>Add Task</h3>
+			<%= form_for @task do |f| %>
+			<%= f.hidden_field :project_id, value: @project.id %>
+
+			<label>Title</label>
+			<%= f.text_field :title %><br/>
+
+			<label>Due Date</label>
+			<%= f.date_select :due_date, order:[:day,:month,:year] %><br/>
+
+			<%= f.check_box :is_completed %> <label>Is Completed? </label><br/>
+
+			<%=f.submit %>
+
+			<% end %>
+     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+        
+
+
+<h3> Completed task </h3>
+
+<% @comp_task.each do |t| %>
+<%= t.title %>-<%= link_to "mark as incompleted", tasks_mark_as_incomplete_path(task_id: t.id) %>
+<% end %>
+
+<h3> InCompleted task </h3>
+
+<% @incomp_task.each do |t| %>
+<%= t.title %>-<%= link_to "mark as completed", tasks_mark_as_complete_path(task_id: t.id) %>
+<% end %>
+
+<p><%= Client.find(@project.client_id).name %><%= link_to "click for info" , client_path %>
+
+</p>
+</div>
+
+	<div class = "col-md-5">
+	<div class="page-header">
+	<h2>Statistics</h2>
+	
+	</div>
+<% data = {} 
+	
+		data["completed"] = @project.tasks.where('is_completed = ?',true).size
+		data["Incompleted"] = @project.tasks.where('is_completed = ?',false).size
+	
+	%>
+<%= pie_chart(data) %>
+<%= column_chart(data) %>
+<%= bar_chart(data) %>
+</div>

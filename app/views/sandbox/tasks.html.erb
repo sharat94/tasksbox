@@ -1,0 +1,29 @@
+<h3> Total Tasks :<%= @tasks.size %></h3>
+<% Project.all.each do |project| %>
+	<h2><%= project.name %></h2>
+	<p> The tasks under this project is </p>
+	<% project.tasks.each do |task| %>
+	<%= task.details.html_safe %>
+	<% end %>
+<% end %>
+
+<h3> Completed Tasks </h3>
+<ul>
+	<% @completed_tasks.each do |task| %>
+	<li><%= task.title %></li>
+	<% end %>
+</ul>
+
+<h3> InCompleted Tasks </h3>
+<ul>
+	<% @incompleted_tasks.each do |task| %>
+	<li><%= task.title %></li>
+	<% end %>
+</ul>
+
+<h3> Overdue task Tasks </h3>
+<ul>
+	<% @over_due_tasks.each do |task| %>
+	<li><%= task.title %></li>
+	<% end %>
+</ul>

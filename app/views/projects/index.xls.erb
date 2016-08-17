@@ -1,0 +1,16 @@
+
+
+<h3><%= @project.name %></h3>
+<p><%= @project.description %> <%= @project.start_date %> 
+    
+    <%= @project.status %></p>
+	<% if @project.tasks.empty? %>
+	No Tasks Found!!!
+	<% else %>
+	<h3>Total Tasks : <%= @project.tasks.size %></h3>
+	<ul>
+		<% @project.tasks.each do |task| %>
+		<li><%= task.title %></li>
+		<% end %>
+	</ul>
+	<% end %>

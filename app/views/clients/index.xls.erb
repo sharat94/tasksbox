@@ -1,0 +1,31 @@
+<table border = "1">
+ <thead>
+ <tr>
+ <th>#</th>
+ <th> Name   </th>
+  <th>Company  </th>
+ <th> Mobile  </th>
+  <th>Email  </th>
+  <th>Project_count </th>
+  <th>Actions </th>
+  <th>Tasks </th>
+
+
+ </tr>
+ </thead>
+ <tbody>
+ <% @clients.each_with_index do |client,index| %>
+ <tr>
+ <td><%= index +1 %></td>
+ <td><%= link_to client.name.capitalize , client_url(client.id) %></td>
+ <td><%= client.company.capitalize %></td>
+ <td><%= client.mobile %></td>
+ <td><%= client.email %></td>
+ <td><%= client.projects.size %></td>
+ <td><%= link_to "Show" , client_url(client.id) %>
+ <td><%= link_to "Show" , project_url(project.id) %>
+ </tr>
+ <%end%>
+ </tbody>
+ </table>
+		

@@ -1,0 +1,29 @@
+<h1> Total Products= <%= @items_stock.size%> </h1>
+
+<table border="1">
+<thead>
+<tr>
+<th>#</th>
+<th>Name</th>
+<th>Price</th>
+<th>Units</th>
+<th>In_stock</th>
+<th>Available_from_date</th>
+<th>Category</th>
+</tr>
+</thead>
+ <tbody>
+ <% @items_stock.each_with_index do |item,index| %>
+ <tr>
+ <td><%= index +1 %></td>
+ <td><%= item.name.capitalize %></td>
+ <td><%= item.price %></td>
+ <td><%= item.unit %></td>
+ <td><%= item.in_stock %></td>
+ <td><%= item.available_from %></td>
+  <td><%= item.category %></td>
+ </tr>
+ <%end%>
+ </tbody>
+ </table>
+ <A HREF="http://localhost:3000/prods/items">Go to the Home Page</A>

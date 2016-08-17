@@ -1,0 +1,35 @@
+<div class="row">
+ 	<div class= "col-md-7">
+
+ <div class="page-header">
+ <h2> Listing Anouncements </h2>
+</div>
+<% if @anouncements.empty? %>
+	<p> No anouncements found </p>
+<% else %>
+<table class="table table-striped">
+ <thead>
+ <tr>
+ <th>#</th>
+ <th> Title   </th>
+  <th>Actions </th>
+
+ </tr>
+ </thead>
+ <tbody>
+ <% @anouncements.each_with_index do |anouncement,index| %>
+ <tr>
+ <td><%= index +1 %></td>
+ <td><%= link_to anouncement.title.capitalize , anouncement_url(anouncement.id) %></td>
+ <td>
+ 	<%= link_to anouncement_path(anouncement.id) do %>
+ 	<span class="glyphicon glyphicon-eye-open"></span>
+ 	<% end %>
+ </td>
+ </tr>
+ <%end%>
+ </tbody>
+ </table>
+<% end %>
+
+<%= link_to "ADD Anouncement", new_anouncement_path, class: "btn btn-info" %>

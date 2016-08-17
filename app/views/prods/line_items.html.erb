@@ -1,0 +1,20 @@
+<h3> Line Items </h3>
+<h4> Line Items : <%= @category.size %></h4>
+<table border="1">
+<thead>
+<tr>
+	<th>Name</th>
+	<th>Products</th>
+	</tr>
+	</thead>
+	<% @category.each do |cat| %>
+	<tr>
+		<td><%= cat.name %></td>
+		<td><%= cat.categories(cat.id) %></td>
+		
+		</tr>
+		<% end %>
+		<tbody>
+		</tbody>
+		
+<A HREF="http://localhost:3000/prods/items">Go to the Home Page</A>

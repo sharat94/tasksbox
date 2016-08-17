@@ -1,0 +1,44 @@
+
+<table border="1">
+<thead>
+<tr>
+	<th>Name</th>
+	<th>Client</th>
+	<th>Start date</th>
+	<th>End date</th>
+	<th>Actions</th>
+	
+	</tr>
+	</thead>
+	<tbody>
+
+	<tr>
+		<td><%= @project.name %></td>
+		<td><%= @project.client.try(:name)  %></td>
+		<td><%= @project.start_date.strftime("%A, %d %B %Y") %></td>
+		<td><%= @project.end_date.strftime("%A, %d %B %Y") %></td>
+
+		<td><%= link_to "Show" , project_path(@project.id) %>|<%= link_to "destroy",project_path(@project.id), method: :delete, data: {confirm: "Are you sure?", remote: true} %></td>
+		</tr>
+		
+
+<h3> Tasks </h3>
+<table border="2">
+	<thead>
+		<tr>
+		<th> Title </th>
+		<th> Due Date</th>
+		<th> Completed </th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @project.tasks.each do |task| %>
+		<tr>
+			<td><%= task.title %></td>
+			<td><%= task.due_date %></td>
+			<td><%= task.is_completed? ? "yes" : "no" %></td>
+			</tr>
+			<% end %>
+			</tbody>
+

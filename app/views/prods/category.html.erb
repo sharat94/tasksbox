@@ -1,0 +1,22 @@
+<h3> Categories </h3>
+<h4> Total Categories : <%= @category.size %></h4>
+<table border="1">
+<thead>
+<tr>
+	<th>Name</th>
+	<th>Products</th>
+	</tr>
+	</thead>
+	<% @category.each do |cat| %>
+	<tr>
+		<td><%= cat.name %></td>
+		<% products=Product.where("category=?",cat.id) %>
+		<% products.each do |p| %>
+		<td><%= p.name %></td>
+		<% end %>
+		</tr>
+		<% end %>
+		<tbody>
+		</tbody>
+		
+<A HREF="http://localhost:3000/prods/items">Go to the Home Page</A>

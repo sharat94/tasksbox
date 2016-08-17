@@ -1,0 +1,55 @@
+<h1> Total Clients : <%= @clients.size %></h1>
+
+
+<% last_client = Client.first %>
+<% if last_client.projects.empty? %>
+<h3> Project not found </h3>
+<% else %>
+<ul>
+<b>Total projects : <%= last_client.projects.size %></b>
+<% last_client.projects.each do |project| %>
+	<li><%= project.name %></li>
+	<% end %>
+	</ul>
+	<%end%>
+
+
+<% @clients.each do |client| %>
+<h3><%= client.details.html_safe %></h3>
+<ul>
+	<% client.list_projects.each do |project| %>
+	<li><%= project.name %></li>
+	<%end%>
+</ul>
+<% end %>
+<ol>
+<% @clients.each do |client| %>
+<li> name - <%=client.name %>, company - <%= client.company %>, mobile - <%= client.mobile %></li>
+<% end %>
+</ol>
+
+<table border = "1">
+ <thead>
+ <tr>
+ <th>#</th>
+ <th> Name   </th>
+  <th>Company  </th>
+ <th> Mobile  </th>
+  <th>Email  </th>
+
+ </tr>
+ </thead>
+ <tbody>
+ <% @clients.each_with_index do |client,index| %>
+ <tr>
+ <td><%= index +1 %></td>
+ <td><%= client.name.capitalize %></td>
+ <td><%= client.company.capitalize %></td>
+ <td><%= client.mobile %></td>
+ <td><%= client.email %></td>
+
+ </tr>
+ <%end%>
+ </tbody>
+ </table>
+

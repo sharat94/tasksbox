@@ -1,0 +1,38 @@
+<h3> Orders </h3>
+<h4> Total Orders : <%= @orders.size %></h4>
+	<% @orders.each do |order| %>
+		
+		<p>Order_id=<%= order.id %></p>
+		<p>Order_date=<%= order.order_date %></p>
+		<p>Order_number=<%= order.order_number %></p>
+		<table border="1">
+		<thead>
+		<tr>
+		<th>Quantity</th>
+		<th>Price</th>
+		<th>Total</th>
+		</tr>
+		</thead>
+		<tbody>
+		
+		<% products1=LineItem.where("order_id =?",order.id) %>
+		<tr>
+		<% sum=0 %>
+		<% products1.each do |p| %>
+		<td><%= p.quantity %></td>
+		<td><%= p.price %></td>
+		<td><%= p.price*p.quantity %></td>
+		<% sum+=p.price*p.quantity %>
+		</tr>
+		</tbody>
+		<%end %>
+								<hr/>
+
+		The total to be paid is <%= sum %>
+
+		<% end %>
+
+
+		
+		
+<A HREF="http://localhost:3000/prods/items">Go to the Home Page</A>
