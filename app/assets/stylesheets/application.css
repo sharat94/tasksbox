@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+.navbar-default {
+  background-color:teal;
+  background-image: none;
+  background-repeat: no-repeat;
+ }
